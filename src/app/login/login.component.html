@@ -1,0 +1,21 @@
+<a href="/signUp" class="signUpBtn">Back to signUp</a>
+<br><br>
+<h3 class="title">Login Form</h3>
+<br>
+<form [formGroup]="loginForm">
+<div>
+  <label>Username:</label>
+  <input type="text" formControlName="userName">
+  <p class="errorMessage" *ngIf="!loginForm.get('userName').valid && loginForm.get('userName').touched">Please enter valid username.</p>
+</div>
+<br>
+<div>
+  <label>Password:</label>
+  <input type="password" formControlName="password">
+  <p class="errorMessage" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">Please enter password.</p>
+</div>
+<br>
+<button (click)="onLogin()" [disabled]="!loginForm.valid">Login</button>
+</form>
+
+<p *ngIf="loginSuccessful">Your Login is successful.</p>

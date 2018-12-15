@@ -1,0 +1,87 @@
+<button type="submit" (click)="goForLogin()" class="loginBtn">Login</button>
+
+<h3 class="title">Registration Form</h3>
+
+<form [formGroup]="signupForm">
+
+  <label>User name:</label>
+  <input type="text" formControlName="userName">
+  <p class="errorMessage" *ngIf="!signupForm.get('userName').valid && signupForm.get('userName').touched">Please Enter a valid user name.</p>
+<br><br>
+
+  <label>Password:</label>
+  <input type="password" formControlName="password">
+  <p class="errorMessage" *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched">Please Enter a valid password(minimum 5 characters required.).</p>
+<br><br>
+
+  <label>Email:</label>
+  <input type="email" formControlName="email">
+  <p class="errorMessage" *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">enter valid email</p>
+<br><br>
+
+  <label>Gender:</label>
+  <input type="radio" formControlName="gender" value="male">male
+  <input type="radio" formControlName="gender" value="female">Female
+  <p class="errorMessage" *ngIf="!signupForm.get('gender').valid && signupForm.get('gender').touched">Please choose gender.</p>
+<br><br>
+
+  <label>Address:</label>
+  <input type="textarea" formControlName="address">
+  <p class="errorMessage" *ngIf="!signupForm.get('address').valid && signupForm.get('address').touched">Please enter valid address.</p>
+<br><br>
+
+  <label>Hobbies:</label>
+  <div *ngFor="let hobby of hobbiesArray; let i= index">
+    <label>
+      <input type="checkbox" formControlName="hobbies" value="{{ hobby }}" (change)="hobbiesList($event)">{{ hobby }}
+    </label>
+  </div>
+  <p class="errorMessage" *ngIf="!signupForm.get('hobbies').valid && signupForm.get('hobbies').touched">Please choose the hobby.</p>
+<br><br>
+
+  <label>Country:</label>
+  <select formControlName="country">
+    <option value="india">India</option>
+    <option value="unitedstates">United States</option>
+    <option value="canada">Canada</option>
+  </select>
+  <p class="errorMessage" *ngIf="!signupForm.get('country').valid && signupForm.get('country').touched">Please choose the country.</p>
+<br><br>
+
+  <label>Profile Picture:</label>
+  <input type="file" formControlName="profilePicture" (change)="onfileupload($event)" accept="image/*">
+<br><br>
+
+  <button type="submit" (click)="signupUser()" [disabled]="!signupForm.valid">Sign Up</button>
+</form>
+
+<div *ngIf="showDetail">
+
+  <label>Username:</label>
+  <h4>{{ displayUserDetail.userName }}</h4>
+
+  <label>Email:</label>
+  <h4>{{ displayUserDetail.email }}</h4>
+
+  <label>Gender:</label>
+  <h4>{{ displayUserDetail.gender }}</h4>
+
+  <label>Address:</label>
+  <h4>{{ displayUserDetail.address }}</h4>
+
+  <div *ngIf="displayUserDetail.hobbies">
+    <label>Hobbies:</label>
+    <h4 *ngFor="let hobby of hobbyList">{{ hobby }}</h4>
+  </div>
+
+  <label>Country:</label>
+  <h4>{{ displayUserDetail.country }}</h4>
+
+  <div *ngIf="displayUserDetail.profilePicture">
+    <label>Profile Picture:</label>
+    <img src="{{ displayUserDetail.profilePicture }} ">
+  </div>
+
+</div>
+
+<router-outlet></router-outlet>
